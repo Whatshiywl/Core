@@ -54,6 +54,7 @@ public class Holdings {
     public void add(double amount) {
         double balance = this.getBalance();
         double ending = (balance + amount);
+        ending = calcAmount(ending);
 
         this.math(amount, balance, ending);
     }
@@ -61,6 +62,7 @@ public class Holdings {
     public void subtract(double amount) {
         double balance = this.getBalance();
         double ending = (balance - amount);
+        ending = calcAmount(ending);
 
         this.math(amount, balance, ending);
     }
@@ -68,6 +70,7 @@ public class Holdings {
     public void divide(double amount) {
         double balance = this.getBalance();
         double ending = (balance / amount);
+        ending = calcAmount(ending);
 
         this.math(amount, balance, ending);
     }
@@ -75,6 +78,7 @@ public class Holdings {
     public void multiply(double amount) {
         double balance = this.getBalance();
         double ending = (balance * amount);
+        ending = calcAmount(ending);
 
         this.math(amount, balance, ending);
     }
@@ -101,6 +105,20 @@ public class Holdings {
 
         if(!Event.isCancelled())
             setBalance(ending);
+    }
+    
+    private double calcAmount(amount){
+        int full = 0;
+        double part = amount;
+        while (part>=1.0){
+            full++;
+            part--;
+        }
+        while (part>=0.06){
+            full++;
+            part-=0.06;
+        }
+        return full+part;
     }
 
     @Override
